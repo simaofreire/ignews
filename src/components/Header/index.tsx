@@ -1,8 +1,9 @@
 import { useRouter } from 'next/router';
+import SignInButton from '../SignInButton';
 
 function Header() {
 	const { pathname } = useRouter();
-	console.log(pathname.includes('/'));
+
 	return (
 		<header className="h-20 border-b-2 border-b-gray-800">
 			<div className="max-w-[1120px] flex items-center h-20 mx-auto my-0 px-8 py-0">
@@ -28,6 +29,10 @@ function Header() {
 						Posts
 					</a>
 				</nav>
+
+				<div className="ml-auto">
+					<SignInButton />
+				</div>
 			</div>
 		</header>
 	);
