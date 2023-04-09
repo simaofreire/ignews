@@ -11,7 +11,7 @@ function Header() {
 
 				<nav className="ml-20 h-20 gap-8">
 					<a
-						href=""
+						href="/"
 						className={`inline-block relative py-0 px-2 h-20 leading-[5rem] text-gray-300 duration-200 hover:text-white ${
 							pathname.includes('/') &&
 							"after:content-[''] after:h-[3px] after:rounded-t-[3px] after:w-full after:absolute after:bottom-[1px] after:left-0 after:bg-yellow-500 text-white font-bold"
@@ -20,7 +20,7 @@ function Header() {
 						Home
 					</a>
 					<a
-						href=""
+						href="/posts"
 						className={`inline-block ml-8 relative py-0 px-2 h-20 leading-[5rem] text-gray-300 duration-200 hover:text-white ${
 							pathname.includes('posts') &&
 							"after:content-[''] after:h-[3px] after:rounded-t-[3px] after:w-full after:absolute after:bottom-[1px] after:left-0 after:bg-yellow-500 text-white font-bold"
