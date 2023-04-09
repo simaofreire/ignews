@@ -1,3 +1,5 @@
+import { fauna } from '@/services/fauna';
+import { query as q } from 'faunadb';
 import NextAuth from 'next-auth';
 import GithubProvider from 'next-auth/providers/github';
 import TwitchProvider from 'next-auth/providers/twitch';
@@ -24,6 +26,20 @@ export const authOptions = {
 			},
 		}),
 	],
+	jwt: {
+		signingKey: process.env.JWT_KEY!,
+	},
+	callbacks: {
+		async signIn({ user, account, profile }: any) {
+			try {
+				await fauna.query(q.Create(q.Collection('users'), { data: { email: user.email } }));
+				return true;
+			} catch (error) {
+				console.error(error);
+				return false;
+			}
+		},
+	},
 };
 
 export default NextAuth(authOptions);

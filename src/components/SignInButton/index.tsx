@@ -6,7 +6,7 @@ export default function SignInButton() {
 	const { data, status } = useSession();
 
 	const authenticated = status === 'authenticated';
-	const userName = data ? data.user?.name : 'Sign in';
+	const user = data ? data.user?.name : 'Sign in';
 
 	if (status === 'loading') return <FaSpinner className="animate-spin " />;
 
@@ -16,8 +16,14 @@ export default function SignInButton() {
 			type="button"
 			onClick={() => (authenticated ? signOut() : signIn())}
 		>
-			<div className={`w-5 h-5 mr-4 rounded-full ${authenticated ? 'bg-[#04d361]' : 'bg-[#eba417]'}`} />
-			{userName}
+			{authenticated ? (
+				<div className="bg-[#04d361] w-6 h-6 rounded-full flex items-center justify-center mr-4">
+					<img src={data?.user?.image as string} className="w-5 h-5  rounded-full" />
+				</div>
+			) : (
+				<div className="w-5 h-5 mr-4 rounded-full bg-[#eba417]" />
+			)}
+			{user}
 			{authenticated ? <FiX color="#737380" className="ml-4" /> : null}
 		</button>
 	);
