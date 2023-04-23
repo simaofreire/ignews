@@ -14,9 +14,8 @@ export default function Home({ product }: HomeProps) {
 	return (
 		<>
 			<Head>
-				<title>Início | ig.news</title>
+				<title>Home | ig.news</title>
 			</Head>
-
 			<main className="max-w-[1120px] my-auto mx-auto py-0 px-8 h-[calc(100vh-5rem)] flex items-center justify-between md:flex-col-reverse md:h-auto mt-20">
 				<section className="max-w-[600px] ">
 					<span className="text-2xl font-bold">👏 Hey, welcome!</span>
