@@ -21,7 +21,7 @@ export default function SignInButton() {
 					<img src={data?.user?.image as string} className="w-5 h-5  rounded-full" />
 				</div>
 			) : (
-				<div className="w-5 h-5 mr-4 rounded-full bg-[#eba417]" />
+				<div className="w-6 h-6 mr-4 rounded-full bg-[#eba417]" />
 			)}
 
 			{loading ? <FaSpinner className="animate-spin " /> : user}
