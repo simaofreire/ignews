@@ -1,26 +1,23 @@
 import { getPrismicClient } from '@/services/prismic';
-import { GetStaticProps } from 'next';
-import Head from 'next/head';
 import Link from 'next/link';
 import { RichText } from 'prismic-dom';
 
 type Post = {
-	slug: string;
+	slug: string | null;
 	title: string;
 	excerpt: string;
 	updatedAt: string;
 };
-interface PostsProps {
-	posts: Post[];
-}
 
-export default function Posts({ posts }: PostsProps) {
+export const metadata = {
+	title: 'Posts | ignews',
+};
+
+export default async function Posts() {
+	const posts = await getPostPageData();
+
 	return (
 		<>
-			<Head>
-				<title>Posts | ig.news</title>
-			</Head>
-
 			<main className="max-w-[1120px] my-0 mx-auto py-0 px-8">
 				<div className="max-w-[720px] mt-20 mb-0 mx-auto">
 					{posts.map((post) => (
@@ -36,7 +33,7 @@ export default function Posts({ posts }: PostsProps) {
 	);
 }
 
-export const getStaticProps: GetStaticProps = async () => {
+export async function getPostPageData(): Promise<Post[]> {
 	const prismic = getPrismicClient();
 	const response = await prismic.getAllByType('publication');
 
@@ -53,7 +50,5 @@ export const getStaticProps: GetStaticProps = async () => {
 		};
 	});
 
-	return {
-		props: { posts },
-	};
-};
+	return posts;
+}

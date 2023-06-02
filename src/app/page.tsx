@@ -1,22 +1,23 @@
 import SubscribeButton from '@/components/SubscribeButton';
 import { stripe } from '@/services/stripe';
-import { GetStaticProps } from 'next';
-import Head from 'next/head';
+import Image from 'next/image';
 
 interface HomeProps {
-	product: {
-		priceId: string;
-		amount: number;
-	};
+	priceId: string;
+	amount: string;
 }
 
-export default function Home({ product }: HomeProps) {
+export const metadata = {
+	title: 'Home | ignews',
+	favicon: 'images/favicon.png',
+};
+
+export default async function Home() {
+	const product: HomeProps = await getHomePageData();
+
 	return (
 		<>
-			<Head>
-				<title>Home | ig.news</title>
-			</Head>
-			<main className="max-w-[1120px] my-auto mx-auto py-0 px-8 h-[calc(100vh-5rem)] flex items-center justify-between md:flex-col-reverse md:h-auto mt-20">
+			<main className="max-w-[1120px] my-auto mx-auto py-0 px-8 h-[calc(100vh-5rem)] flex items-center justify-between md:flex-col-reverse md:h-auto">
 				<section className="max-w-[600px] ">
 					<span className="text-2xl font-bold">👏 Hey, welcome!</span>
 
@@ -33,18 +34,20 @@ export default function Home({ product }: HomeProps) {
 					</div>
 				</section>
 
-				<img src="/images/avatar.svg" alt="Mulher programando" />
+				<Image src="images/avatar.svg" alt="Mulher programando" width={336} height={521} />
 			</main>
 		</>
 	);
 }
 
-export const getStaticProps: GetStaticProps = async () => {
+// export const revalidate = 86400; // 24 hours
+
+export async function getHomePageData() {
 	const price = await stripe.prices.retrieve('price_1Mudt5BTLPkeukhGShrMN7Mr');
 	const product = {
 		priceId: price.id,
 		amount: new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(price.unit_amount! / 100),
 	};
 
-	return { props: { product }, revalidate: 60 * 60 * 24 }; // 24 hours
-};
+	return product;
+}
