@@ -26,6 +26,7 @@ export default function SubscribeButton({ priceId }: SubscribeButtonProps) {
 
     try {
       const { data, status } = await api.post("/subscribe", { priceId });
+
       if (status === 200) {
         const { sessionId } = data;
         const stripe = await getStripeJs();

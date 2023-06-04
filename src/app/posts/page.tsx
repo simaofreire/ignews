@@ -10,7 +10,7 @@ type Post = {
 };
 
 export const metadata = {
-  title: "Posts | ignews",
+  title: "Posts | ig.news",
 };
 
 export default async function Posts() {
