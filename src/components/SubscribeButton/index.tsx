@@ -32,6 +32,7 @@ export default function SubscribeButton({ priceId }: SubscribeButtonProps) {
         const stripe = await getStripeJs();
         await stripe?.redirectToCheckout({ sessionId });
       }
+      
       setLoading(false);
     } catch (error) {
       console.error(error);

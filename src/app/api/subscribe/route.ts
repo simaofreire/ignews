@@ -1,7 +1,8 @@
+import { headers } from "next/headers";
 import { fauna } from "@/services/fauna";
 import { stripe } from "@/services/stripe";
 import { query as q } from "faunadb";
-import { NextApiRequest } from "next";
+import { NextApiRequest, NextApiResponse } from "next";
 import { getServerSession } from "next-auth";
 import { NextResponse } from "next/server";
 import { authOptions } from "../auth/[...nextauth]/route";
@@ -17,10 +18,11 @@ interface NextApiRequestWithSession extends NextApiRequest {
   json: () => Promise<{ priceId: string }>;
 }
 
-export async function POST(req: NextApiRequestWithSession) {
+export async function POST(req: NextApiRequestWithSession, res: NextApiResponse) {
   const { priceId } = await req.json();
   const session = await getServerSession(authOptions);
   const user = await fauna.query<User>(q.Get(q.Match(q.Index("user_by_email"), q.Casefold(session?.user?.email!))));
+
   let customerId = user.data.stripe_customer_id;
 
   if (!customerId) {
@@ -42,7 +44,6 @@ export async function POST(req: NextApiRequestWithSession) {
   const stripeCheckoutSession = await stripe.checkout.sessions.create({
     customer: customerId,
     payment_method_types: ["card"],
-    billing_address_collection: "required",
     line_items: [
       {
         price: priceId,

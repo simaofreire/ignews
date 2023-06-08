@@ -21,7 +21,7 @@ export default async function Posts() {
       <div className="max-w-[720px] mt-20 mb-0 mx-auto">
         {posts.map((post) => (
           <Link
-            href="#"
+            href={`/posts/${post.slug}`}
             className="block mt-8 pt-8 border-t border-t-gray-700 border-t-solid"
             key={post.slug}
           >

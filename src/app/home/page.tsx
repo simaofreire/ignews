@@ -1,6 +1,7 @@
 import SubscribeButton from "@/components/SubscribeButton";
 import { stripe } from "@/services/stripe";
 import Image from "next/image";
+import avatar from "../../../public/images/avatar.svg";
 
 interface HomeProps {
   priceId: string;
@@ -34,7 +35,7 @@ export default async function Home() {
       </section>
 
       <Image
-        src="images/avatar.svg"
+        src={avatar}
         alt="Mulher programando"
         width={336}
         height={521}
