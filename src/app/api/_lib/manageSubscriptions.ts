@@ -10,7 +10,7 @@ export async function saveSubscription(subscriptionId: string, customerId: strin
     id: subscription.id,
     userId: userRef,
     status: subscription.status,
-    price_id: subscription.items.data[0].price.id,
+    price_id: subscription.items.data[0].price.id
   };
 
   if (createAction) {
@@ -18,8 +18,8 @@ export async function saveSubscription(subscriptionId: string, customerId: strin
   } else {
     await fauna.query(
       q.Replace(q.Select("ref", q.Get(q.Match(q.Index("subscription_by_id"), subscriptionId))), {
-        data: subscriptionData,
-      }),
+        data: subscriptionData
+      })
     );
   }
 }

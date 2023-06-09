@@ -60,8 +60,8 @@ export async function getPostData(slug: string) {
     updatedAt: new Date(response.last_publication_date).toLocaleDateString("pt-BR", {
       day: "2-digit",
       month: "long",
-      year: "numeric",
-    }),
+      year: "numeric"
+    })
   };
 
   return post;
@@ -70,6 +70,6 @@ export async function getPostData(slug: string) {
 export async function generateMetadata({ params }: PostPageProps, parent?: ResolvingMetadata): Promise<Metadata> {
   const res = await getPostData(params.slug);
   return {
-    title: `${res.title} | ig.news`,
+    title: `${res.title} | ig.news`
   };
 }

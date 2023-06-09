@@ -4,7 +4,6 @@ import logo from "../../../public/images/logo.svg";
 import ActiveLink from "../ActiveLink";
 import SignInButton from "../SignInButton";
 
-
 function Header() {
   return (
     <header className="h-20 border-b-2 border-b-gray-800">

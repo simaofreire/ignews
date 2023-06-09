@@ -10,7 +10,7 @@ interface HomeProps {
 
 export const metadata = {
   title: "Home | ignews",
-  favicon: "images/favicon.png",
+  favicon: "images/favicon.png"
 };
 
 export default async function Home() {
@@ -18,7 +18,7 @@ export default async function Home() {
 
   return (
     <main className="max-w-[1120px] my-auto mx-auto py-0 px-8 h-[calc(100vh-5rem)] flex items-center justify-between md:flex-col-reverse md:h-auto">
-      <section className="max-w-[600px] ">
+      <section className="max-w-[600px]">
         <span className="text-2xl font-bold">👏 Hey, welcome!</span>
 
         <h1 className="text-[4.5rem] leading-[4.5rem] font-black mt-10">
@@ -44,7 +44,7 @@ export default async function Home() {
   );
 }
 
-// export const revalidate = 86400; // 24 hours
+// export const revalidate = 5000; // 24 hours
 
 export async function getHomePageData() {
   const price = await stripe.prices.retrieve("price_1Mudt5BTLPkeukhGShrMN7Mr");
@@ -52,8 +52,8 @@ export async function getHomePageData() {
     priceId: price.id,
     amount: new Intl.NumberFormat("en-US", {
       style: "currency",
-      currency: "USD",
-    }).format(price.unit_amount! / 100),
+      currency: "USD"
+    }).format(price.unit_amount! / 100)
   };
 
   return product;

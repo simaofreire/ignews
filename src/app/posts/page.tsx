@@ -10,7 +10,7 @@ type Post = {
 };
 
 export const metadata = {
-  title: "Posts | ig.news",
+  title: "Posts | ig.news"
 };
 
 export default async function Posts() {
@@ -47,8 +47,8 @@ export async function getPostPageData(): Promise<Post[]> {
       updatedAt: new Date(post.last_publication_date).toLocaleDateString("pt-BR", {
         day: "2-digit",
         month: "long",
-        year: "numeric",
-      }),
+        year: "numeric"
+      })
     };
   });
 

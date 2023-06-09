@@ -21,7 +21,7 @@ async function buffer(readable: Readable) {
 const relevantEvents = new Set([
   "checkout.session.completed",
   "customer.subscription.updated",
-  "customer.subscription.deleted",
+  "customer.subscription.deleted"
 ]);
 
 interface Request extends NextApiRequest {
@@ -41,7 +41,7 @@ export async function POST(req: Request) {
       event = stripe.webhooks.constructEvent(buf, secret, process.env.STRIPE_WEBHOOK_SECRET!);
     } catch (err) {
       return NextResponse.json({
-        message: `Webhook error: ${err}`,
+        message: `Webhook error: ${err}`
       });
     }
 
@@ -64,7 +64,7 @@ export async function POST(req: Request) {
             await saveSubscription(
               checkoutSession.subscription!.toString(),
               checkoutSession.customer!.toString(),
-              true,
+              true
             );
 
             break;

@@ -11,9 +11,9 @@ export const authOptions: NextAuthOptions = {
       clientSecret: process.env.GITHUB_CLIENT_SECRET!,
       authorization: {
         params: {
-          scope: "read:user",
-        },
-      },
+          scope: "read:user"
+        }
+      }
     }),
 
     TwitchProvider({
@@ -21,13 +21,13 @@ export const authOptions: NextAuthOptions = {
       clientSecret: process.env.TWITCH_CLIENT_SECRET!,
       authorization: {
         params: {
-          scope: "openid user:read:email",
-        },
-      },
-    }),
+          scope: "openid user:read:email"
+        }
+      }
+    })
   ],
   jwt: {
-    secret: process.env.JWT_KEY,
+    secret: process.env.JWT_KEY
   },
   callbacks: {
     async session({ session }: any) {
@@ -37,11 +37,11 @@ export const authOptions: NextAuthOptions = {
             q.Intersection([
               q.Match(
                 q.Index("subscription_by_user_ref"),
-                q.Select("ref", q.Get(q.Match(q.Index("user_by_email"), q.Casefold(session.user.email)))),
+                q.Select("ref", q.Get(q.Match(q.Index("user_by_email"), q.Casefold(session.user.email))))
               ),
-              q.Match(q.Index("subscription_by_status"), "active"),
-            ]),
-          ),
+              q.Match(q.Index("subscription_by_status"), "active")
+            ])
+          )
         );
 
         return { ...session, subscriptionStatus: userActiveSubscription.data.status };
@@ -57,16 +57,16 @@ export const authOptions: NextAuthOptions = {
           q.If(
             q.Not(q.Exists(q.Match(q.Index("user_by_email"), q.Casefold(user.email)))),
             q.Create(q.Collection("users"), { data: { email } }),
-            q.Get(q.Match(q.Index("user_by_email"), q.Casefold(user.email))),
-          ),
+            q.Get(q.Match(q.Index("user_by_email"), q.Casefold(user.email)))
+          )
         );
         return true;
       } catch (error) {
         console.error(error);
         return false;
       }
-    },
-  },
+    }
+  }
 };
 
 const handler = NextAuth(authOptions);
