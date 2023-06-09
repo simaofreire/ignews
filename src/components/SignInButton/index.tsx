@@ -16,7 +16,7 @@ export default function SignInButton() {
     <button
       className="min-w-[140px] flex items-center justify-center font-bold text-white py-0 px-6 h-12 rounded-[3rem] bg-gray-850 border-none hover:brightness-[0.8] transition duration-200"
       type="button"
-      onClick={() => (authenticated ? signOut() : signIn())}
+      onClick={() => (authenticated ? signOut() : signIn("github"))}
       disabled={loading}
     >
       {authenticated && (

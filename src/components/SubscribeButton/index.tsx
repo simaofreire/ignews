@@ -3,6 +3,7 @@
 import { api } from "@/services/api";
 import { getStripeJs } from "@/services/stripe-js";
 import { signIn, useSession } from "next-auth/react";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { FaSpinner } from "react-icons/fa";
 
@@ -11,7 +12,9 @@ interface SubscribeButtonProps {
 }
 
 export default function SubscribeButton({ priceId }: SubscribeButtonProps) {
-  const { data } = useSession();
+  const { data, status }: any = useSession();
+  const { push } = useRouter();
+  const awaitStatus = status === "authenticated" || status === "unauthenticated";
   const [loading, setLoading] = useState(false);
 
   async function handleSubscribe(e: React.MouseEvent<HTMLButtonElement, MouseEvent>) {
@@ -21,6 +24,11 @@ export default function SubscribeButton({ priceId }: SubscribeButtonProps) {
     if (!data) {
       signIn();
       setLoading(false);
+    }
+
+    if (data.subscriptionStatus === "active") {
+      setLoading(false);
+      push("/posts");
       return;
     }
 
@@ -32,7 +40,7 @@ export default function SubscribeButton({ priceId }: SubscribeButtonProps) {
         const stripe = await getStripeJs();
         await stripe?.redirectToCheckout({ sessionId });
       }
-      
+
       setLoading(false);
     } catch (error) {
       console.error(error);
@@ -45,7 +53,7 @@ export default function SubscribeButton({ priceId }: SubscribeButtonProps) {
       type="button"
       className="w-[260px] h-16 border-none rounded-[2rem] bg-yellow-500 text-gray-900 text-xl font-bold flex items-center justify-center duration-200 hover:brightness-[0.8] disabled:brightness-[0.8] disabled:cursor-not-allowed"
       onClick={(e) => handleSubscribe(e)}
-      disabled={loading}
+      disabled={loading || !awaitStatus}
     >
       {loading ? <FaSpinner className="animate-spin" /> : "Subscribe now"}
     </button>
