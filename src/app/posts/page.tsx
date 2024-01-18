@@ -35,7 +35,7 @@ export default async function Posts() {
   );
 }
 
-export async function getPostPageData(): Promise<Post[]> {
+async function getPostPageData(): Promise<Post[]> {
   const prismic = getPrismicClient();
   const response = await prismic.getAllByType("publication");
 

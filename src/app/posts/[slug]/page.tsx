@@ -44,7 +44,7 @@ export default async function Post({ params }: PostPageProps) {
   );
 }
 
-export async function getPostData(slug: string) {
+async function getPostData(slug: string) {
   const session: SessionProps | null = await getServerSession(authOptions);
 
   if (!session?.user || !session?.subscriptionStatus) return redirect(`/posts/preview/${slug}`);
@@ -67,7 +67,7 @@ export async function getPostData(slug: string) {
   return post;
 }
 
-export async function generateMetadata({ params }: PostPageProps, parent?: ResolvingMetadata): Promise<Metadata> {
+async function generateMetadata({ params }: PostPageProps, parent?: ResolvingMetadata): Promise<Metadata> {
   const res = await getPostData(params.slug);
   return {
     title: `${res.title} | ig.news`

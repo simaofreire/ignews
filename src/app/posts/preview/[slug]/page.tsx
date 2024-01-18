@@ -55,7 +55,7 @@ export default async function PostPreview({ params }: PostPagePreviewProps) {
   );
 }
 
-export async function getPostData(slug: string) {
+async function getPostData(slug: string) {
   const session: SessionProps | null = await getServerSession(authOptions);
 
   if (session?.user && session?.subscriptionStatus) return redirect(`/posts/${slug}`);
