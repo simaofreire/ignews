@@ -9,11 +9,7 @@ const nextConfig = {
       }
     ];
   },
-  exportPathMap: () => {
-    return {
-      "/": { page: "/home" }
-    };
-  },
+
   images: {
     remotePatterns: [
       {
