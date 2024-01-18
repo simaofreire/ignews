@@ -1,9 +1,9 @@
 import { fauna } from "@/services/fauna";
 import { stripe } from "@/services/stripe";
 import { query as q } from "faunadb";
-import { NextApiRequest, NextApiResponse } from "next";
+import { NextApiResponse } from "next";
 import { getServerSession } from "next-auth";
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 import { authOptions } from "../auth/[...nextauth]/route";
 
 type User = {
@@ -13,11 +13,7 @@ type User = {
   };
 };
 
-interface NextApiRequestWithSession extends NextApiRequest {
-  json: () => Promise<{ priceId: string }>;
-}
-
-export async function POST(req: NextApiRequestWithSession, res: NextApiResponse) {
+export async function POST(req: NextRequest, res: NextApiResponse) {
   const { priceId } = await req.json();
   const session = await getServerSession(authOptions);
   const user = await fauna.query<User>(q.Get(q.Match(q.Index("user_by_email"), q.Casefold(session?.user?.email!))));
