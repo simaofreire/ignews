@@ -78,11 +78,9 @@ async function getPostData(slug: string) {
   return post;
 }
 
-export async function generateMetadata(
-  { params }: PostPagePreviewProps,
-  parent?: ResolvingMetadata
-): Promise<Metadata> {
+async function generateMetadata({ params }: PostPagePreviewProps, parent?: ResolvingMetadata): Promise<Metadata> {
   const res = await getPostData(params.slug);
+
   return {
     title: `${res.title} | ig.news`
   };
