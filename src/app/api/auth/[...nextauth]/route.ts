@@ -27,8 +27,9 @@ export const authOptions: NextAuthOptions = {
     })
   ],
   jwt: {
-    secret: process.env.NEXTAUTH_SECRET
+    secret: process.env.JWT_KEY
   },
+  secret: process.env.NEXTAUTH_SECRET,
   callbacks: {
     async session({ session }: any) {
       try {
