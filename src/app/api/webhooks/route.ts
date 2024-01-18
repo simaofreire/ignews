@@ -1,7 +1,6 @@
 import { stripe } from "@/services/stripe";
-import { NextApiRequest } from "next";
 import { headers } from "next/headers";
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 import { EventEmitter, Readable } from "stream";
 import Stripe from "stripe";
 import { saveSubscription } from "../_lib/manageSubscriptions";
@@ -24,11 +23,7 @@ const relevantEvents = new Set([
   "customer.subscription.deleted"
 ]);
 
-interface Request extends NextApiRequest {
-  text: () => Promise<string>;
-}
-
-export async function POST(req: Request) {
+export async function POST(req: NextRequest) {
   try {
     const rawBody = await req.text();
     const readable = Readable.from(rawBody);
