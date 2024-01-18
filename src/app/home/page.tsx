@@ -14,7 +14,7 @@ export const metadata = {
 };
 
 export default async function Home() {
-  const product: HomeProps = await getHomePageData();
+  const product: HomeProps = await getCurrentPageData();
 
   return (
     <main className="max-w-[1120px] my-auto mx-auto py-0 px-8 h-[calc(100vh-5rem)] flex items-center justify-between md:flex-col-reverse md:h-auto">
@@ -46,7 +46,7 @@ export default async function Home() {
 
 // export const revalidate = 5000; // 24 hours
 
-export async function getHomePageData() {
+export async function getCurrentPageData() {
   const price = await stripe.prices.retrieve("price_1Mudt5BTLPkeukhGShrMN7Mr");
   const product = {
     priceId: price.id,
