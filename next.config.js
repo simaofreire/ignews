@@ -5,22 +5,27 @@ const nextConfig = {
       {
         source: "/",
         destination: "/home",
-        permanent: true,
-      },
+        permanent: true
+      }
     ];
+  },
+  exportPathMap: () => {
+    return {
+      "/": { page: "/home" }
+    };
   },
   images: {
     remotePatterns: [
       {
         protocol: "https",
-        hostname: "avatars.githubusercontent.com",
+        hostname: "avatars.githubusercontent.com"
       },
       {
         protocol: "https",
-        hostname: "static-cdn.jtvnw.net",
-      },
-    ],
-  },
+        hostname: "static-cdn.jtvnw.net"
+      }
+    ]
+  }
 };
 
 module.exports = nextConfig;

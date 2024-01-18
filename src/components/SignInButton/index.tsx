@@ -1,5 +1,6 @@
 "use client";
 
+import useIsMobile from "@/hooks/useIsMobile";
 import { signIn, signOut, useSession } from "next-auth/react";
 import Image from "next/image";
 import { FaSpinner } from "react-icons/fa";
@@ -7,6 +8,7 @@ import { FiX } from "react-icons/fi";
 
 export default function SignInButton() {
   const { data, status } = useSession();
+  const isMobile = useIsMobile();
 
   const authenticated = status === "authenticated";
   const loading = status === "loading";
@@ -14,7 +16,7 @@ export default function SignInButton() {
 
   return (
     <button
-      className="min-w-[140px] flex items-center justify-center font-bold text-white py-0 px-6 h-12 rounded-[3rem] bg-gray-850 border-none hover:brightness-[0.8] transition duration-200"
+      className="min-w-[140px] flex items-center justify-center font-bold text-white py-0 px-6 h-12 rounded-[3rem] bg-gray-850 border-none hover:brightness-[0.8] transition duration-200 sm:min-w-0"
       type="button"
       onClick={() => (authenticated ? signOut() : signIn("github"))}
       disabled={loading}
@@ -33,7 +35,7 @@ export default function SignInButton() {
 
       {!authenticated && !loading && <div className="w-6 h-6 mr-4 rounded-full bg-[#eba417]" />}
 
-      {loading ? <FaSpinner className="animate-spin " /> : user}
+      {loading ? <FaSpinner className="animate-spin" /> : !isMobile && user}
 
       {authenticated && (
         <FiX

@@ -46,7 +46,7 @@ export default async function Home() {
 
 // export const revalidate = 5000; // 24 hours
 
-export async function getCurrentPageData() {
+async function getCurrentPageData() {
   const price = await stripe.prices.retrieve("price_1Mudt5BTLPkeukhGShrMN7Mr");
   const product = {
     priceId: price.id,

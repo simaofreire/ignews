@@ -7,8 +7,11 @@ import SignInButton from "../SignInButton";
 function Header() {
   return (
     <header className="h-20 border-b-2 border-b-gray-800">
-      <div className="max-w-[1120px] flex items-center h-20 mx-auto my-0 px-8 py-0">
-        <Link href="/home">
+      <div className="max-w-[1120px] flex items-center h-20 mx-auto my-0 px-8 py-0 sm:justify-between">
+        <Link
+          href="/home"
+          className="sm:hidden"
+        >
           <Image
             width={110}
             height={31}
@@ -17,7 +20,7 @@ function Header() {
           />
         </Link>
 
-        <nav className="ml-20 h-20 gap-8">
+        <nav className="ml-20 h-20 gap-8 whitespace-nowrap sm:ml-0">
           <ActiveLink href="/home">
             <a>Home</a>
           </ActiveLink>
@@ -26,7 +29,7 @@ function Header() {
           </ActiveLink>
         </nav>
 
-        <div className="ml-auto">
+        <div className="ml-auto sm:ml-0">
           <SignInButton />
         </div>
       </div>
