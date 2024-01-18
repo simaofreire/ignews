@@ -66,6 +66,9 @@ export const authOptions: NextAuthOptions = {
         console.error(error);
         return false;
       }
+    },
+    async redirect({ url, baseUrl }) {
+      return url;
     }
   }
 };
