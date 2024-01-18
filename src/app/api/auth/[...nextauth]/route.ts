@@ -27,7 +27,7 @@ export const authOptions: NextAuthOptions = {
     })
   ],
   jwt: {
-    secret: process.env.JWT_KEY
+    secret: process.env.NEXTAUTH_SECRET
   },
   callbacks: {
     async session({ session }: any) {
@@ -71,3 +71,4 @@ export const authOptions: NextAuthOptions = {
 
 const handler = NextAuth(authOptions);
 export { handler as GET, handler as POST };
+
