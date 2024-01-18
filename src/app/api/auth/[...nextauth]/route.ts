@@ -31,7 +31,9 @@ export const authOptions: NextAuthOptions = {
   },
   secret: process.env.NEXTAUTH_SECRET,
   callbacks: {
-    async session({ session }: any) {
+    async session({ session, ...rest }: any) {
+      if (!session) return false;
+
       try {
         const userActiveSubscription: any = await fauna.query(
           q.Get(
@@ -51,6 +53,8 @@ export const authOptions: NextAuthOptions = {
       }
     },
     async signIn({ user }: any) {
+      if (!user) return false;
+
       const { email } = user;
 
       try {
@@ -66,9 +70,6 @@ export const authOptions: NextAuthOptions = {
         console.error(error);
         return false;
       }
-    },
-    async redirect({ url, baseUrl }) {
-      return url;
     }
   }
 };
